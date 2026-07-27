@@ -1,47 +1,92 @@
+# app.py
 import tkinter as tk
+from tkinter import ttk, messagebox
+from models import Usuario, Ticket, TicketManager
 
-import tkinter as tk
-from tkinter import ttk
+class Menu:
+    def __init__(self, master):
+        self.master = master
+        self.master.title("CarDir HelpDesk")
+        self.master.geometry("900x600")
 
-ventana = tk.Tk()
-ventana.title("Visor de Estudiantes")
-ventana.geometry("600x300")
+        self.manager = TicketManager()
+        self.usuario_actual = Usuario("Dirceu", "Lozano", id_usuario=1)
 
-# Definir las columnas de la tabla
-columnas = ("id", "nombre", "apellido", "nota")
-tree = ttk.Treeview(ventana, columns=columnas, show="headings")
+        self.crear_formulario()
+        self.crear_tabla()
+        self.cargar_tickets()
 
-# Configurar los encabezados
-tree.heading("id", text="ID")
-tree.heading("nombre", text="Nombre")
-tree.heading("apellido", text="Apellido")
-tree.heading("nota", text="Nota")
+    # ---------------- FORMULARIO ----------------
+    def crear_formulario(self):
+        frame = tk.LabelFrame(self.master, text="Crear Ticket", padx=10, pady=10)
+        frame.pack(fill="x", padx=10, pady=10)
 
-# Configurar el ancho de las columnas
-tree.column("id", width=50, anchor=tk.CENTER)
-tree.column("nombre", width=150)
-tree.column("apellido", width=150)
-tree.column("nota", width=80, anchor=tk.CENTER)
+        tk.Label(frame, text="Descripción:").grid(row=0, column=0, sticky="w")
+        self.descripcion = tk.Entry(frame, width=50)
+        self.descripcion.grid(row=0, column=1)
 
-# Datos de ejemplo
-datos_estudiantes = [
-    (1, "Ana", "García", 8.5),
-    (2, "Luis", "Pérez", 7.0),
-    (3, "Marta", "Ruiz", 9.2),
-    (4, "Carlos", "Sánchez", 6.8),
-    (5, "Sofía", "Martín", 9.5)
-]
+        tk.Label(frame, text="Categoría:").grid(row=1, column=0, sticky="w")
+        self.categoria = ttk.Combobox(frame, values=["Hardware", "Software", "Red", "Otro"])
+        self.categoria.grid(row=1, column=1)
 
-# Insertar datos en el Treeview
-for i, estudiante in enumerate(datos_estudiantes):
-    tree.insert("", tk.END, iid=i, values=estudiante)
+        tk.Label(frame, text="Prioridad:").grid(row=2, column=0, sticky="w")
+        self.prioridad = ttk.Combobox(frame, values=["Baja", "Media", "Alta"])
+        self.prioridad.grid(row=2, column=1)
 
-# Scrollbar vertical
-scrollbar_y = ttk.Scrollbar(ventana, orient="vertical", command=tree.yview)
-tree.configure(yscrollcommand=scrollbar_y.set)
+        tk.Button(frame, text="Crear Ticket", command=self.crear_ticket).grid(row=3, column=1, pady=10)
 
-# Empaquetar
-tree.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-scrollbar_y.pack(side=tk.RIGHT, fill=tk.Y)
+    # ---------------- TABLA ----------------
+    def crear_tabla(self):
+        self.tabla = ttk.Treeview(self.master, columns=("ID", "Usuario", "Descripción", "Categoría", "Prioridad", "Estado"), show="headings")
+        self.tabla.pack(fill="both", expand=True, padx=10, pady=10)
 
-ventana.mainloop()
+        for col in self.tabla["columns"]:
+            self.tabla.heading(col, text=col)
+
+        tk.Button(self.master, text="Eliminar Ticket Seleccionado", command=self.eliminar_ticket).pack(pady=10)
+
+    # ---------------- CRUD ----------------
+    def crear_ticket(self):
+        descripcion = self.descripcion.get()
+        categoria = self.categoria.get()
+        prioridad = self.prioridad.get()
+
+        if not descripcion or not categoria or not prioridad:
+            messagebox.showerror("Error", "Todos los campos son obligatorios")
+            return
+
+        nuevo_id = len(self.manager.tickets) + 1
+        ticket = Ticket(nuevo_id, self.usuario_actual, descripcion, categoria, prioridad)
+
+        self.manager.crear_ticket(ticket)
+        self.cargar_tickets()
+
+        messagebox.showinfo("OK", "Ticket creado correctamente")
+
+    def cargar_tickets(self):
+        for fila in self.tabla.get_children():
+            self.tabla.delete(fila)
+
+        for t in self.manager.listar_tickets():
+            self.tabla.insert("", "end", values=(t["id_ticket"], t["usuario"], t["descripcion"], t["categoria"], t["prioridad"], t["estado"]))
+
+    def eliminar_ticket(self):
+        seleccionado = self.tabla.selection()
+        if not seleccionado:
+            messagebox.showwarning("Aviso", "Selecciona un ticket")
+            return
+
+        valores = self.tabla.item(seleccionado)["values"]
+        id_ticket = valores[0]
+
+        if self.manager.eliminar(id_ticket):
+            self.cargar_tickets()
+            messagebox.showinfo("OK", "Ticket eliminado")
+        else:
+            messagebox.showerror("Error", "No se pudo eliminar")
+
+# ---------------- MAIN ----------------
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = Menu(root)
+    root.mainloop()

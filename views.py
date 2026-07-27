@@ -1,10 +1,10 @@
 # Capa de Interfaz Gráfica (Tkinter / TTK)
 
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk,messagebox
 from venv import create
 
-from models import TicketManager,Usuario
+from models import TicketManager, Usuario, Crear_Gestor
 
 
 class Menu:
@@ -12,7 +12,8 @@ class Menu:
     def __init__(self, master):
         self.master = master
         # self.usuario = usuario
-        # self.gestor = gestor
+        self.gestor = Crear_Gestor()
+
 
         self.master.title("CarDir HelpDesk")
 
@@ -94,7 +95,7 @@ class Menu:
         self.prioridad = ttk.Combobox(frame, values=["Baja", "Media", "Alta"])
         self.prioridad.grid(row=2, column=1, padx=5, pady=5)
 
-        boton_cr = tk.Button(frame, text="Crear Ticket", command=self.gestor.crear_ticket)
+        boton_cr = tk.Button(frame, text="Crear Ticket", command="")
         boton_cr.grid(row=3, column=1, pady=10, sticky="e")
 
 
@@ -135,15 +136,16 @@ class Menu:
         boton_cr_ges.grid(row=3, column=1, pady=10)
 
     def guardar_gestor(self):
+
         nombre = self.nombre.get().strip()
         apellido = self.apellido.get().strip()
 
-        ok, mensaje = self.usuario.crear_gestor(nombre, apellido)
+        ok, mensaje = self.gestor.guardar_gestor(nombre,apellido)
 
         if ok:
-            self.messagebox.showinfo("OK", mensaje)
+            messagebox.showinfo("OK", mensaje)
         else:
-            self.messagebox.showerror("Error", mensaje)
+            messagebox.showerror("Error", mensaje)
 
 
 

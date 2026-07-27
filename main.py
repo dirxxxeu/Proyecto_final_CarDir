@@ -13,5 +13,6 @@ if __name__ == "__main__":
     #.crear_ticket(, "No funciona el WiFi", "Red", "Alta")
 
     root = tk.Tk()
-    app = Menu.formulario_gestor(root)
+    app = Menu(root)
+    app.formulario_gestor()
     root.mainloop()

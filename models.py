@@ -16,16 +16,16 @@ class Usuario(Persona):
         return f"Usuario: {self.nombre} {self.apellido}"
 
 
-    def crear_gestor(self):
-        nombre = self.nombre.get().strip()
-        apellido = self.apellido.get().strip()
-        if not nombre and not apellido:
-            self.messagebox.showerror("Error", "No puede tener campos vacíos")
-            return
+class Crear_Gestor:
+    def __init__(self):
+        self.gestor_actual = None
 
-        self.usuario_actual = Usuario(nombre, apellido)
+    def guardar_gestor(self, nombre, apellido):
+        if not nombre or not apellido:
+            return False, "Los campos no pueden estar vacíos"
 
-        self.messagebox.showinfo("OK", f"Gestor creado: {self.usuario_actual}")
+        self.gestor_actual = Usuario(nombre, apellido)
+        return True, f"Gestor creado: {self.gestor_actual}"
 
 
 class Ticket:
