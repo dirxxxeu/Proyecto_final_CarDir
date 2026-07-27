@@ -1,0 +1,18 @@
+[
+    {
+        "id_ticket": 1,
+        "usuario": "Usuario: Dirceu Lozano",
+        "descripcion": "No funciona el WiFi",
+        "categoria": "Red",
+        "prioridad": "Alta",
+        "estado": "Abierto"
+    },
+    {
+        "id_ticket": 2,
+        "usuario": "Usuario: Dirceu Lozano",
+        "descripcion": "No funciona el WiFi",
+        "categoria": "Red",
+        "prioridad": "Alta",
+        "estado": "Abierto"
+    }
+]
