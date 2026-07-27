@@ -6,12 +6,12 @@ from models import Usuario, TicketManager
 from views import Menu
 
 if __name__ == "__main__":
-    usuario_actual = Usuario("Dirceu", "Lozano")
-    gestor = TicketManager()
+    #usuario_actual = Usuario("Dirceu", "Lozano")
+    #gestor = TicketManager()
 
     # Ejemplo de creación de ticket
-    gestor.crear_ticket(usuario_actual, "No funciona el WiFi", "Red", "Alta")
+    #.crear_ticket(, "No funciona el WiFi", "Red", "Alta")
 
     root = tk.Tk()
-    app = Menu(root, usuario_actual, gestor)
+    app = Menu.formulario_gestor(root)
     root.mainloop()
