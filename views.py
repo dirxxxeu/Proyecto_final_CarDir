@@ -1,19 +1,15 @@
 # Capa de Interfaz Gráfica (Tkinter / TTK)
 
 import tkinter as tk
-from tkinter import ttk,messagebox
-from venv import create
-
-from models import TicketManager, Usuario, Crear_Gestor
-
+from tkinter import ttk, messagebox
+from models import TicketManager, Usuario
 
 class Menu:
     """Pantalla principal"""
     def __init__(self, master):
         self.master = master
-        # self.usuario = usuario
-        self.gestor = Crear_Gestor()
 
+        self.ticket_manager = TicketManager()   # ← gestor de tickets
 
         self.master.title("CarDir HelpDesk")
 
@@ -29,22 +25,19 @@ class Menu:
 
         self.master.geometry(f"{ancho}x{alto}+{x}+{y}")
 
+        #self.frame_treeview()
+        self.botones()
+        #self.formulario_crear()
 
+    def frame_treeview(self):
+        self.frame_tree = tk.Frame(self.master)
+        self.frame_tree.grid(row=2, column=0, sticky="nsew")
 
-
-        # ----- FRAME DEL TREEVIEW -----
-
-
-        frame_tree = tk.Frame(self.master)
-        frame_tree.grid(row=2, column=0, sticky="nsew")
-
-        # Permitir que el Treeview se expanda
-        self.master.grid_rowconfigure(1, weight=1)
+        self.master.grid_rowconfigure(2, weight=1)
         self.master.grid_columnconfigure(0, weight=1)
 
-        # Crear Treeview
         self.columnas = ("ID", "Usuario", "Descripción", "Categoría", "Prioridad", "Estado")
-        self.tree = ttk.Treeview(frame_tree, columns=self.columnas, show="headings")
+        self.tree = ttk.Treeview(self.frame_tree, columns=self.columnas, show="headings")
 
         for col in self.columnas:
             self.tree.heading(col, text=col)
@@ -52,22 +45,19 @@ class Menu:
 
         self.tree.grid(row=0, column=0, sticky="nsew")
 
-        # Scrollbar
-        scrollbar = ttk.Scrollbar(frame_tree, orient="vertical", command=self.tree.yview)
+        scrollbar = ttk.Scrollbar(self.frame_tree, orient="vertical", command=self.tree.yview)
         self.tree.configure(yscrollcommand=scrollbar.set)
         scrollbar.grid(row=0, column=1, sticky="ns")
 
-        # Expandir Treeview dentro del frame
-        frame_tree.grid_rowconfigure(0, weight=1)
-        frame_tree.grid_columnconfigure(0, weight=1)
-
+        self.frame_tree.grid_rowconfigure(0, weight=1)
+        self.frame_tree.grid_columnconfigure(0, weight=1)
 
     def mostrar_tickets(self):
-        # Limpiar el Treeview antes de insertar
+        self.frame_treeview()
         for item in self.tree.get_children():
             self.tree.delete(item)
 
-        tickets = self.gestor.listar_tickets()
+        tickets = self.ticket_manager.listar_tickets()
 
         for t in tickets:
             self.tree.insert("", tk.END, values=(
@@ -78,30 +68,74 @@ class Menu:
                 t["prioridad"],
                 t["estado"]
             ))
+
     def formulario_crear(self):
-        # ----- FORMULARIO -----
-        frame = tk.LabelFrame(self.master, text="Crear Ticket", padx=10, pady=10)
-        frame.grid(row=0, column=0, sticky="ew", padx=10, pady=10)
+        self.frame_tree.destroy()
+        self.frame_crear = tk.LabelFrame(self.master, text="Crear Ticket", padx=10, pady=10)
+        self.frame_crear.grid(row=1, column=0, sticky="ew", padx=10, pady=10)
 
-        tk.Label(frame, text="Descripción:").grid(row=0, column=0, sticky="w")
-        self.descripcion = tk.Entry(frame, width=50)
-        self.descripcion.grid(row=0, column=1, padx=5, pady=5)
+        tk.Label(self.frame_crear, text="Usuario:").grid(row=0, column=0, sticky="w")
+        self.usuario_nombre = tk.Entry(self.frame_crear, width=40)
+        self.usuario_nombre.grid(row=0, column=1, padx=5, pady=5)
 
-        tk.Label(frame, text="Categoría:").grid(row=1, column=0, sticky="w")
-        self.categoria = ttk.Combobox(frame, values=["Hardware", "Software", "Red", "Otro"])
-        self.categoria.grid(row=1, column=1, padx=5, pady=5)
+        tk.Label(self.frame_crear, text="Apellido:").grid(row=1, column=0, sticky="w")
+        self.usuario_apellido = tk.Entry(self.frame_crear, width=40)
+        self.usuario_apellido.grid(row=1, column=1, padx=5, pady=5)
 
-        tk.Label(frame, text="Prioridad:").grid(row=2, column=0, sticky="w")
-        self.prioridad = ttk.Combobox(frame, values=["Baja", "Media", "Alta"])
-        self.prioridad.grid(row=2, column=1, padx=5, pady=5)
+        tk.Label(self.frame_crear, text="Descripción:").grid(row=2, column=0, sticky="w")
+        self.descripcion = tk.Entry(self.frame_crear, width=50)
+        self.descripcion.grid(row=2, column=1, padx=5, pady=5)
 
-        boton_cr = tk.Button(frame, text="Crear Ticket", command="")
-        boton_cr.grid(row=3, column=1, pady=10, sticky="e")
+        tk.Label(self.frame_crear, text="Categoría:").grid(row=3, column=0, sticky="w")
+        self.categoria = ttk.Combobox(self.frame_crear, values=["Hardware", "Software", "Red", "Otro"])
+        self.categoria.grid(row=3, column=1, padx=5, pady=5)
 
+        tk.Label(self.frame_crear, text="Prioridad:").grid(row=4, column=0, sticky="w")
+        self.prioridad = ttk.Combobox(self.frame_crear, values=["Baja", "Media", "Alta"])
+        self.prioridad.grid(row=4, column=1, padx=5, pady=5)
+
+        boton_cr = tk.Button(self.frame_crear, text="Crear Ticket", command=self.crear_ticket)
+        boton_cr.grid(row=5, column=1, pady=10, sticky="e")
+
+    def crear_ticket(self):
+        self.frame_tree.destroy()
+
+        nombre = self.usuario_nombre.get().strip()
+        apellido = self.usuario_apellido.get().strip()
+        descripcion = self.descripcion.get().strip()
+        categoria = self.categoria.get().strip()
+        prioridad = self.prioridad.get().strip()
+
+        if not nombre or not apellido or not descripcion or not categoria or not prioridad:
+            messagebox.showerror("Error", "Todos los campos son obligatorios")
+            return
+
+        usuario = Usuario(nombre, apellido)
+
+        self.ticket_manager.crear_ticket(usuario, descripcion, categoria, prioridad)
+
+        messagebox.showinfo("OK", "Ticket creado correctamente")
+
+        #  Aquí se destruye el formulario
+        self.frame_crear.destroy()
+
+        # Opcional: refrescar la tabla
+        #self.mostrar_tickets()
+
+    def formulario_buscar(self):
+        # ----- FORMULARIO BUSCAR -----
+        self.frame_buscar = tk.LabelFrame(self.master, text="Buscar Ticket", padx=10, pady=10)
+        self.frame_buscar.grid(row=1, column=0, sticky="ew", padx=10, pady=10)
+
+        tk.Label(self.frame_buscar, text="ID del Ticket:").grid(row=0, column=0, sticky="w")
+        self.buscar_id = tk.Entry(self.frame_buscar, width=20)
+        self.buscar_id.grid(row=0, column=1, padx=5, pady=5)
+
+        boton_buscar = tk.Button(self.frame_buscar, text="Buscar", command=self.ticket_manager.buscar_ticket)
+        boton_buscar.grid(row=1, column=1, pady=10, sticky="e")
 
     def botones(self):
-        # ----- FRAME SUPERIOR -----
-        frame_superior = tk.Frame(self.master)
+        frame_superior = tk.LabelFrame(self.master)
         frame_superior.grid(row=0, column=0, sticky="w", padx=10, pady=10)
 
         etiqueta = tk.Label(frame_superior, text="CarDir HelpDesk 1.0", font=("Arial", 16))
@@ -112,47 +146,12 @@ class Menu:
 
         boton_listar = tk.Button(frame_superior, text="Listar Tickets", command=self.mostrar_tickets)
         boton_listar.grid(row=1, column=1, padx=10, pady=10)
-        boton_buscar = tk.Button(frame_superior, text="Buscar Tickets", command="")
-        boton_buscar.grid(row=1, column=2, padx=10, pady=10)
-        boton_modificar = tk.Button(frame_superior, text="Modificar Tickets", command="")
-        boton_modificar.grid(row=1, column=3, padx=10, pady=10)
-        boton_eliminar = tk.Button(frame_superior, text="Eliminar Tickets", command="")
+
+        boton_nuevo =tk.Button(frame_superior,text="Nuevo Ticket", command=self.formulario_crear)
+        boton_nuevo.grid(row=1, column=2, padx=10, pady=10)
+
+        boton_busqueda = tk.Button(frame_superior, text="Buscar Ticket", command=self.formulario_buscar)
+        boton_busqueda.grid(row=1, column=3, padx=10, pady=10)
+
+        boton_eliminar =tk.Button(frame_superior, text="Eliminar Ticket", command="")
         boton_eliminar.grid(row=1, column=4, padx=10, pady=10)
-
-
-    def formulario_gestor(self):
-        self.frame_gestor = tk.LabelFrame(self.master, text="Usuario Gestor", padx=10, pady=10)
-        self.frame_gestor.grid(row=0, column=0, sticky="ew", padx=10, pady=10)
-
-        tk.Label(self.frame_gestor, text="Nombre:").grid(row=0, column=0, sticky="w")
-        self.nombre = tk.Entry(self.frame_gestor, width=50)
-        self.nombre.grid(row=0, column=1, padx=5, pady=5)
-
-        tk.Label(self.frame_gestor, text="Apellido:").grid(row=1, column=0, sticky="w")
-        self.apellido = tk.Entry(self.frame_gestor, width=50)
-        self.apellido.grid(row=1, column=1, padx=5, pady=5)
-
-        boton_cr_ges = tk.Button(self.frame_gestor, text="Crear Gestor", command=self.guardar_gestor)
-        boton_cr_ges.grid(row=3, column=1, pady=10)
-
-    def guardar_gestor(self):
-
-        nombre = self.nombre.get().strip()
-        apellido = self.apellido.get().strip()
-
-        ok, mensaje = self.gestor.guardar_gestor(nombre,apellido)
-
-        if ok:
-            messagebox.showinfo("OK", mensaje)
-            self.frame_gestor.destroy()
-
-            self.botones()
-            self.formulario_crear()
-        else:
-            messagebox.showerror("Error", mensaje)
-
-
-
-
-
-

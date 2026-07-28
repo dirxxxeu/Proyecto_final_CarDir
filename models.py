@@ -1,16 +1,10 @@
 import json
 import os
 
-
-
-
 class Persona:
-
-
     def __init__(self, nombre, apellido):
         self.nombre = nombre
         self.apellido = apellido
-
 
 class Usuario(Persona):
     def __init__(self, nombre, apellido, id_usuario=0):
@@ -18,28 +12,11 @@ class Usuario(Persona):
         self.id_usuario = id_usuario
 
     def __str__(self):
-        return f"Usuario: {self.nombre} {self.apellido}"
-
-
-
-class Crear_Gestor:
-    def __init__(self):
-        self.gestor_actual = None
-
-
-    def guardar_gestor(self, nombre, apellido):
-        if not nombre or not apellido:
-            return False, "Los campos no pueden estar vacíos"
-
-        self.gestor_actual = Usuario(nombre, apellido)
-
-        return True, f"Gestor creado: {self.gestor_actual}"
-
+        return f"{self.nombre} {self.apellido}"
 
 
 
 class Ticket:
-
     def __init__(self, id_ticket, usuario, descripcion, categoria, prioridad, estado="Abierto"):
         self.id_ticket = id_ticket
         self.usuario = usuario
@@ -58,7 +35,6 @@ class Ticket:
             "estado": self.estado
         }
 
-
 class TicketManager:
     def __init__(self, archivo="tickets.json"):
         self.archivo = archivo
@@ -66,7 +42,6 @@ class TicketManager:
         self.cargar()
 
     def cargar(self):
-        """Carga los tickets desde el archivo JSON."""
         if os.path.exists(self.archivo):
             with open(self.archivo, "r", encoding="utf-8") as f:
                 self.tickets = json.load(f)
@@ -74,11 +49,8 @@ class TicketManager:
             self.tickets = []
 
     def guardar(self):
-        """Guarda los tickets en el archivo JSON."""
         with open(self.archivo, "w", encoding="utf-8") as f:
             json.dump(self.tickets, f, indent=4, ensure_ascii=False)
-
-    # CRUD -----------------------------
 
     def crear_ticket(self, usuario, descripcion, categoria, prioridad):
         nuevo_id = len(self.tickets) + 1

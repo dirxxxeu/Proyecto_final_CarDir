@@ -1,218 +1,66 @@
 [
     {
         "id_ticket": 1,
-        "usuario": "Usuario: Dirceu Lozano",
-        "descripcion": "No funciona el WiFi",
+        "usuario": "Dirceu Lozano",
+        "descripcion": "problema con conectar",
         "categoria": "Red",
-        "prioridad": "Alta",
+        "prioridad": "Media",
         "estado": "Abierto"
     },
     {
         "id_ticket": 2,
-        "usuario": "Usuario: Dirceu Lozano",
-        "descripcion": "No funciona el WiFi",
-        "categoria": "Red",
+        "usuario": "Sandra Gelvez",
+        "descripcion": "LENTITUD",
+        "categoria": "Hardware",
         "prioridad": "Alta",
         "estado": "Abierto"
     },
     {
         "id_ticket": 3,
-        "usuario": "Usuario: Dirceu Lozano",
-        "descripcion": "No funciona el WiFi",
-        "categoria": "Red",
+        "usuario": "asf dsaf",
+        "descripcion": "asfdasfdjfa asdf af",
+        "categoria": "Software",
         "prioridad": "Alta",
         "estado": "Abierto"
     },
     {
         "id_ticket": 4,
-        "usuario": "Usuario: Dirceu Lozano",
-        "descripcion": "No funciona el WiFi",
+        "usuario": "asf fsadf",
+        "descripcion": "fasdf",
         "categoria": "Red",
-        "prioridad": "Alta",
+        "prioridad": "Media",
         "estado": "Abierto"
     },
     {
         "id_ticket": 5,
-        "usuario": "Usuario: Dirceu Lozano",
-        "descripcion": "No funciona el WiFi",
-        "categoria": "Red",
+        "usuario": "safd afsdf",
+        "descripcion": "adfadf afda fasdf",
+        "categoria": "Software",
         "prioridad": "Alta",
         "estado": "Abierto"
     },
     {
         "id_ticket": 6,
-        "usuario": "Usuario: Dirceu Lozano",
-        "descripcion": "No funciona el WiFi",
+        "usuario": "asdf fasd",
+        "descripcion": "ASDF",
         "categoria": "Red",
         "prioridad": "Alta",
         "estado": "Abierto"
     },
     {
         "id_ticket": 7,
-        "usuario": "Usuario: Dirceu Lozano",
-        "descripcion": "No funciona el WiFi",
-        "categoria": "Red",
-        "prioridad": "Alta",
+        "usuario": "Sandra Gelvez",
+        "descripcion": "dsa a sdf adfs af",
+        "categoria": "Software",
+        "prioridad": "Media",
         "estado": "Abierto"
     },
     {
         "id_ticket": 8,
-        "usuario": "Usuario: Dirceu Lozano",
-        "descripcion": "No funciona el WiFi",
-        "categoria": "Red",
-        "prioridad": "Alta",
-        "estado": "Abierto"
-    },
-    {
-        "id_ticket": 9,
-        "usuario": "Usuario: Dirceu Lozano",
-        "descripcion": "No funciona el WiFi",
-        "categoria": "Red",
-        "prioridad": "Alta",
-        "estado": "Abierto"
-    },
-    {
-        "id_ticket": 10,
-        "usuario": "Usuario: Dirceu Lozano",
-        "descripcion": "No funciona el WiFi",
-        "categoria": "Red",
-        "prioridad": "Alta",
-        "estado": "Abierto"
-    },
-    {
-        "id_ticket": 11,
-        "usuario": "Usuario: Dirceu Lozano",
-        "descripcion": "No funciona el WiFi",
-        "categoria": "Red",
-        "prioridad": "Alta",
-        "estado": "Abierto"
-    },
-    {
-        "id_ticket": 12,
-        "usuario": "Usuario: Dirceu Lozano",
-        "descripcion": "No funciona el WiFi",
-        "categoria": "Red",
-        "prioridad": "Alta",
-        "estado": "Abierto"
-    },
-    {
-        "id_ticket": 13,
-        "usuario": "Usuario: Dirceu Lozano",
-        "descripcion": "No funciona el WiFi",
-        "categoria": "Red",
-        "prioridad": "Alta",
-        "estado": "Abierto"
-    },
-    {
-        "id_ticket": 14,
-        "usuario": "Usuario: Dirceu Lozano",
-        "descripcion": "No funciona el WiFi",
-        "categoria": "Red",
-        "prioridad": "Alta",
-        "estado": "Abierto"
-    },
-    {
-        "id_ticket": 15,
-        "usuario": "Usuario: Dirceu Lozano",
-        "descripcion": "No funciona el WiFi",
-        "categoria": "Red",
-        "prioridad": "Alta",
-        "estado": "Abierto"
-    },
-    {
-        "id_ticket": 16,
-        "usuario": "Usuario: Dirceu Lozano",
-        "descripcion": "No funciona el WiFi",
-        "categoria": "Red",
-        "prioridad": "Alta",
-        "estado": "Abierto"
-    },
-    {
-        "id_ticket": 17,
-        "usuario": "Usuario: Dirceu Lozano",
-        "descripcion": "No funciona el WiFi",
-        "categoria": "Red",
-        "prioridad": "Alta",
-        "estado": "Abierto"
-    },
-    {
-        "id_ticket": 18,
-        "usuario": "Usuario: Dirceu Lozano",
-        "descripcion": "No funciona el WiFi",
-        "categoria": "Red",
-        "prioridad": "Alta",
-        "estado": "Abierto"
-    },
-    {
-        "id_ticket": 19,
-        "usuario": "Usuario: Dirceu Lozano",
-        "descripcion": "No funciona el WiFi",
-        "categoria": "Red",
-        "prioridad": "Alta",
-        "estado": "Abierto"
-    },
-    {
-        "id_ticket": 20,
-        "usuario": "Usuario: Dirceu Lozano",
-        "descripcion": "No funciona el WiFi",
-        "categoria": "Red",
-        "prioridad": "Alta",
-        "estado": "Abierto"
-    },
-    {
-        "id_ticket": 21,
-        "usuario": "Usuario: Dirceu Lozano",
-        "descripcion": "No funciona el WiFi",
-        "categoria": "Red",
-        "prioridad": "Alta",
-        "estado": "Abierto"
-    },
-    {
-        "id_ticket": 22,
-        "usuario": "Usuario: Dirceu Lozano",
-        "descripcion": "No funciona el WiFi",
-        "categoria": "Red",
-        "prioridad": "Alta",
-        "estado": "Abierto"
-    },
-    {
-        "id_ticket": 23,
-        "usuario": "Usuario: Dirceu Lozano",
-        "descripcion": "No funciona el WiFi",
-        "categoria": "Red",
-        "prioridad": "Alta",
-        "estado": "Abierto"
-    },
-    {
-        "id_ticket": 24,
-        "usuario": "Usuario: Dirceu Lozano",
-        "descripcion": "No funciona el WiFi",
-        "categoria": "Red",
-        "prioridad": "Alta",
-        "estado": "Abierto"
-    },
-    {
-        "id_ticket": 25,
-        "usuario": "Usuario: Dirceu Lozano",
-        "descripcion": "No funciona el WiFi",
-        "categoria": "Red",
-        "prioridad": "Alta",
-        "estado": "Abierto"
-    },
-    {
-        "id_ticket": 26,
-        "usuario": "Usuario: Dirceu Lozano",
-        "descripcion": "No funciona el WiFi",
-        "categoria": "Red",
-        "prioridad": "Alta",
-        "estado": "Abierto"
-    },
-    {
-        "id_ticket": 27,
-        "usuario": "Usuario: Dirceu Lozano",
-        "descripcion": "No funciona el WiFi",
-        "categoria": "Red",
-        "prioridad": "Alta",
+        "usuario": "PEPITA PEREZ",
+        "descripcion": "LJSF AS DFA FD",
+        "categoria": "Software",
+        "prioridad": "Media",
         "estado": "Abierto"
     }
 ]
