@@ -1,7 +1,12 @@
 import json
 import os
 
+
+
+
 class Persona:
+
+
     def __init__(self, nombre, apellido):
         self.nombre = nombre
         self.apellido = apellido
@@ -16,16 +21,21 @@ class Usuario(Persona):
         return f"Usuario: {self.nombre} {self.apellido}"
 
 
+
 class Crear_Gestor:
     def __init__(self):
         self.gestor_actual = None
+
 
     def guardar_gestor(self, nombre, apellido):
         if not nombre or not apellido:
             return False, "Los campos no pueden estar vacíos"
 
         self.gestor_actual = Usuario(nombre, apellido)
+
         return True, f"Gestor creado: {self.gestor_actual}"
+
+
 
 
 class Ticket:

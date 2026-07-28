@@ -121,18 +121,18 @@ class Menu:
 
 
     def formulario_gestor(self):
-        frame = tk.LabelFrame(self.master, text="Usuario Gestor", padx=10, pady=10)
-        frame.grid(row=0, column=0, sticky="ew", padx=10, pady=10)
+        self.frame_gestor = tk.LabelFrame(self.master, text="Usuario Gestor", padx=10, pady=10)
+        self.frame_gestor.grid(row=0, column=0, sticky="ew", padx=10, pady=10)
 
-        tk.Label(frame, text="Nombre:").grid(row=0, column=0, sticky="w")
-        self.nombre = tk.Entry(frame, width=50)
+        tk.Label(self.frame_gestor, text="Nombre:").grid(row=0, column=0, sticky="w")
+        self.nombre = tk.Entry(self.frame_gestor, width=50)
         self.nombre.grid(row=0, column=1, padx=5, pady=5)
 
-        tk.Label(frame, text="Apellido:").grid(row=1, column=0, sticky="w")
-        self.apellido = tk.Entry(frame, width=50)
+        tk.Label(self.frame_gestor, text="Apellido:").grid(row=1, column=0, sticky="w")
+        self.apellido = tk.Entry(self.frame_gestor, width=50)
         self.apellido.grid(row=1, column=1, padx=5, pady=5)
 
-        boton_cr_ges = tk.Button(frame, text="Crear Gestor", command=self.guardar_gestor)
+        boton_cr_ges = tk.Button(self.frame_gestor, text="Crear Gestor", command=self.guardar_gestor)
         boton_cr_ges.grid(row=3, column=1, pady=10)
 
     def guardar_gestor(self):
@@ -144,6 +144,10 @@ class Menu:
 
         if ok:
             messagebox.showinfo("OK", mensaje)
+            self.frame_gestor.destroy()
+
+            self.botones()
+            self.formulario_crear()
         else:
             messagebox.showerror("Error", mensaje)
 
