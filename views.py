@@ -131,8 +131,46 @@ class Menu:
         self.buscar_id = tk.Entry(self.frame_buscar, width=20)
         self.buscar_id.grid(row=0, column=1, padx=5, pady=5)
 
-        boton_buscar = tk.Button(self.frame_buscar, text="Buscar", command=self.ticket_manager.buscar_ticket)
+        boton_buscar = tk.Button(self.frame_buscar, text="Buscar", command=self.ejecutar_busqueda)
         boton_buscar.grid(row=1, column=1, pady=10, sticky="e")
+
+    def ejecutar_busqueda(self):
+
+        id_ticket = self.buscar_id.get().strip()
+
+        if not id_ticket.isdigit():
+            messagebox.showerror("Error", "El ID debe ser un número")
+            return
+
+        ticket = self.ticket_manager.buscar_ticket(int(id_ticket))
+
+        if ticket:
+            messagebox.showinfo(
+                "Ticket encontrado",
+                f"ID: {ticket['id_ticket']}\n"
+                f"Usuario: {ticket['usuario']}\n"
+                f"Descripción: {ticket['descripcion']}\n"
+                f"Categoría: {ticket['categoria']}\n"
+                f"Prioridad: {ticket['prioridad']}\n"
+                f"Estado: {ticket['estado']}"
+            )
+
+            # Mostrar tabla y seleccionar el ticket encontrado
+            self.mostrar_tickets()
+
+            for item in self.tree.get_children():
+                valores = self.tree.item(item, "values")
+                if int(valores[0]) == int(id_ticket):
+                    self.tree.selection_set(item)
+                    self.tree.focus(item)
+                    break
+
+        else:
+            messagebox.showerror("No encontrado", "No existe un ticket con ese ID")
+
+        # Destruir formulario de búsqueda
+        self.frame_buscar.destroy()
+
 
     def botones(self):
         frame_superior = tk.LabelFrame(self.master)

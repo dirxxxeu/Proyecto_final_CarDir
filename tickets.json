@@ -62,5 +62,21 @@
         "categoria": "Software",
         "prioridad": "Media",
         "estado": "Abierto"
+    },
+    {
+        "id_ticket": 9,
+        "usuario": "sfa fasd",
+        "descripcion": "fasdf afsd",
+        "categoria": "Red",
+        "prioridad": "Alta",
+        "estado": "Abierto"
+    },
+    {
+        "id_ticket": 10,
+        "usuario": "af asdf",
+        "descripcion": "asdf",
+        "categoria": "Red",
+        "prioridad": "Alta",
+        "estado": "Abierto"
     }
 ]
