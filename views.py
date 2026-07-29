@@ -158,7 +158,7 @@ class Menu:
         boton_buscar.grid(row=1, column=1, pady=10, sticky="e")
 
     def ejecutar_busqueda(self):
-        """Ejecuta la busqueda del ticket"""
+        """Ejecuta la búsqueda del ticket"""
         id_ticket = self.buscar_id.get().strip()
 
         if not id_ticket.isdigit():
@@ -198,6 +198,7 @@ class Menu:
         boton_eliminar.grid(row=1, column=1, pady=10, sticky="e")
 
     def ejecutar_eliminar(self):
+        """Ejecuta la eliminación del registo usando el ID"""
         id_ticket = self.eliminar_id.get().strip()
 
         if not id_ticket.isdigit():
@@ -216,6 +217,7 @@ class Menu:
 
     # ---------------- MODIFICAR TICKET ----------------
     def formulario_modificar(self):
+        """Formulario de modificar ticket """
         self.cerrar_frames_abiertos()
 
         self.frame_modificar = tk.LabelFrame(self.master, text="Modificar Ticket", padx=10, pady=10)
@@ -229,6 +231,7 @@ class Menu:
         boton_cargar.grid(row=0, column=2, padx=10)
 
     def cargar_datos_ticket(self):
+        """ metodo de cargar datos usando el ID"""
         id_ticket = self.modificar_id.get().strip()
 
         if not id_ticket.isdigit():
@@ -241,7 +244,7 @@ class Menu:
             messagebox.showerror("Error", "No existe un ticket con ese ID")
             return
 
-        # --- USUARIO (NO editable) ---
+        # --- USUARIO (NO se puede editar) ---
         tk.Label(self.frame_modificar, text="Usuario:").grid(row=1, column=0, sticky="w")
         self.mod_usuario = tk.Entry(self.frame_modificar, width=40)
         self.mod_usuario.insert(0, ticket["usuario"])
@@ -277,6 +280,7 @@ class Menu:
         boton_guardar.grid(row=6, column=1, pady=10, sticky="e")
 
     def guardar_modificacion(self):
+        """método de modificar los datos del formulario"""
         id_ticket = int(self.modificar_id.get().strip())
 
         nueva_descripcion = self.mod_descripcion.get().strip()
@@ -305,6 +309,7 @@ class Menu:
         self.metricas()
 
     def ejecutar_modificar(self):
+        """Método de ejecutar la modificación"""
         id_ticket = self.modificar_id.get().strip()
         estado = self.nuevo_estado.get().strip()
 
@@ -337,7 +342,7 @@ class Menu:
 
     # ---------------- BOTONES SUPERIORES ----------------
     def botones(self):
-
+        """Muestra siempre los botones para realizar tareas en el software"""
         frame_superior = tk.LabelFrame(self.master)
         frame_superior.grid(row=1, column=0, sticky="ew", padx=10, pady=10)
 
