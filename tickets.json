@@ -1,34 +1,10 @@
 [
     {
         "id_ticket": 1,
-        "usuario": "Dirceu Lozano",
-        "descripcion": "problema con conectar",
-        "categoria": "Red",
-        "prioridad": "Media",
-        "estado": "Abierto"
-    },
-    {
-        "id_ticket": 2,
-        "usuario": "Sandra Gelvez",
-        "descripcion": "LENTITUD",
-        "categoria": "Hardware",
-        "prioridad": "Alta",
-        "estado": "Abierto"
-    },
-    {
-        "id_ticket": 5,
-        "usuario": "safd afsdf",
-        "descripcion": "adfadf afda fasdf",
-        "categoria": "Software",
-        "prioridad": "Alta",
-        "estado": "Abierto"
-    },
-    {
-        "id_ticket": 6,
-        "usuario": "asdf fasd",
-        "descripcion": "ASDF",
+        "usuario": "PEPITO PEREZ",
+        "descripcion": "INTERNET NO FUNCIONA",
         "categoria": "Red",
         "prioridad": "Alta",
-        "estado": "Cerrado"
+        "estado": "En Proceso"
     }
 ]

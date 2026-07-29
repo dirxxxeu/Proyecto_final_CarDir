@@ -2,6 +2,8 @@
 
 import tkinter as tk
 from tkinter import ttk, messagebox
+from tkinter.messagebox import askokcancel
+
 from models import TicketManager, Usuario
 
 class Menu:
@@ -30,6 +32,7 @@ class Menu:
         self.botones()
 
     def metricas(self):
+        """Hace un recuento de los tickets"""
         self.frame_metricas = tk.LabelFrame(self.master, text="Métricas", padx=10, pady=10)
         self.frame_metricas.grid(row=0, column=0, sticky="ew", padx=10, pady=10)
 
@@ -43,6 +46,7 @@ class Menu:
 
     # ---------------- TREEVIEW ----------------
     def frame_treeview(self):
+        """Es el tree o tabla donde muestra los tickets abiertos"""
         self.cerrar_frames_abiertos()
 
         self.frame_tree = tk.Frame(self.master)
@@ -68,6 +72,7 @@ class Menu:
         self.frame_tree.grid_columnconfigure(0, weight=1)
 
     def mostrar_tickets(self):
+        """Mediante el ciclo hace una busqueda y los pinta en el tree o tabla"""
         self.frame_treeview()
         for item in self.tree.get_children():
             self.tree.delete(item)
@@ -86,6 +91,7 @@ class Menu:
 
     # ---------------- CREAR TICKET ----------------
     def formulario_crear(self):
+        """Formulario para crear ticket"""
         self.cerrar_frames_abiertos()
 
         self.frame_crear = tk.LabelFrame(self.master, text="Crear Ticket", padx=10, pady=10)
@@ -115,6 +121,7 @@ class Menu:
         boton_cr.grid(row=5, column=1, pady=10, sticky="e")
 
     def crear_ticket(self):
+        """Crea el ticket con los datos del formulario"""
         nombre = self.usuario_nombre.get().strip()
         apellido = self.usuario_apellido.get().strip()
         descripcion = self.descripcion.get().strip()
@@ -135,6 +142,7 @@ class Menu:
 
     # ---------------- BUSCAR TICKET ----------------
     def formulario_buscar(self):
+        """Formulario de buscar ticket"""
         self.cerrar_frames_abiertos()
 
         self.frame_buscar = tk.LabelFrame(self.master, text="Buscar Ticket", padx=10, pady=10)
@@ -148,6 +156,7 @@ class Menu:
         boton_buscar.grid(row=1, column=1, pady=10, sticky="e")
 
     def ejecutar_busqueda(self):
+        """Ejecuta la busqueda del ticket"""
         id_ticket = self.buscar_id.get().strip()
 
         if not id_ticket.isdigit():
@@ -173,6 +182,7 @@ class Menu:
 
     # ---------------- ELIMINAR TICKET ----------------
     def formulario_eliminar(self):
+        """Formulario de eliminar ticket """
         self.cerrar_frames_abiertos()
 
         self.frame_eliminar = tk.LabelFrame(self.master, text="Eliminar Ticket", padx=10, pady=10)
@@ -192,12 +202,13 @@ class Menu:
             messagebox.showerror("Error", "El ID debe ser un número")
             return
 
-        eliminado = self.ticket_manager.eliminar_ticket(int(id_ticket))
+        if askokcancel("Eliminar", f"Eliminar Ticket {id_ticket}"):
+            eliminado = self.ticket_manager.eliminar_ticket(int(id_ticket))
+            if eliminado:
+                messagebox.showerror("Eliminado", f"Ticket {id_ticket} eliminado correctamente")
+            else:
+                messagebox.showerror("Error", f"No existe un ticket con el ID {id_ticket}")
 
-        if eliminado:
-            messagebox.showinfo("Eliminado", f"Ticket {id_ticket} eliminado correctamente")
-        else:
-            messagebox.showerror("Error", "No existe un ticket con ese ID")
 
         self.frame_eliminar.destroy()
 
