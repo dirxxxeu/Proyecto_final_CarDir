@@ -139,6 +139,8 @@ class Menu:
         messagebox.showinfo("OK", "Ticket creado correctamente")
 
         self.frame_crear.destroy()
+        self.frame_metricas.destroy()
+        self.metricas()
 
     # ---------------- BUSCAR TICKET ----------------
     def formulario_buscar(self):
