@@ -14,8 +14,6 @@ class Usuario(Persona):
     def __str__(self):
         return f"{self.nombre} {self.apellido}"
 
-
-
 class Ticket:
     def __init__(self, id_ticket, usuario, descripcion, categoria, prioridad, estado="Abierto"):
         self.id_ticket = id_ticket
@@ -61,6 +59,13 @@ class TicketManager:
 
     def listar_tickets(self):
         return self.tickets
+
+    def obtener_metricas(self):
+        abiertos = sum(1 for t in self.tickets if t["estado"] == "Abierto")
+        proceso = sum(1 for t in self.tickets if t["estado"] == "En Proceso")
+        cerrados = sum(1 for t in self.tickets if t["estado"] == "Cerrado")
+
+        return abiertos, proceso, cerrados
 
     def buscar_ticket(self, id_ticket):
         for t in self.tickets:

@@ -16,22 +16,6 @@
         "estado": "Abierto"
     },
     {
-        "id_ticket": 3,
-        "usuario": "asf dsaf",
-        "descripcion": "asfdasfdjfa asdf af",
-        "categoria": "Software",
-        "prioridad": "Alta",
-        "estado": "Abierto"
-    },
-    {
-        "id_ticket": 4,
-        "usuario": "asf fsadf",
-        "descripcion": "fasdf",
-        "categoria": "Red",
-        "prioridad": "Media",
-        "estado": "Abierto"
-    },
-    {
         "id_ticket": 5,
         "usuario": "safd afsdf",
         "descripcion": "adfadf afda fasdf",
@@ -45,38 +29,6 @@
         "descripcion": "ASDF",
         "categoria": "Red",
         "prioridad": "Alta",
-        "estado": "Abierto"
-    },
-    {
-        "id_ticket": 7,
-        "usuario": "Sandra Gelvez",
-        "descripcion": "dsa a sdf adfs af",
-        "categoria": "Software",
-        "prioridad": "Media",
-        "estado": "Abierto"
-    },
-    {
-        "id_ticket": 8,
-        "usuario": "PEPITA PEREZ",
-        "descripcion": "LJSF AS DFA FD",
-        "categoria": "Software",
-        "prioridad": "Media",
-        "estado": "Abierto"
-    },
-    {
-        "id_ticket": 9,
-        "usuario": "sfa fasd",
-        "descripcion": "fasdf afsd",
-        "categoria": "Red",
-        "prioridad": "Alta",
-        "estado": "Abierto"
-    },
-    {
-        "id_ticket": 10,
-        "usuario": "af asdf",
-        "descripcion": "asdf",
-        "categoria": "Red",
-        "prioridad": "Alta",
-        "estado": "Abierto"
+        "estado": "Cerrado"
     }
 ]
