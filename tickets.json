@@ -2,9 +2,9 @@
     {
         "id_ticket": 1,
         "usuario": "PEPITO PEREZ",
-        "descripcion": "INTERNET NO FUNCIONA",
+        "descripcion": "INTERNET NO FUNCIONA. TENIA CABLE DESCONECTADO",
         "categoria": "Red",
         "prioridad": "Alta",
-        "estado": "En Proceso"
+        "estado": "Cerrado"
     }
 ]

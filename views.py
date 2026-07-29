@@ -223,12 +223,84 @@ class Menu:
         self.modificar_id = tk.Entry(self.frame_modificar, width=20)
         self.modificar_id.grid(row=0, column=1, padx=5, pady=5)
 
-        tk.Label(self.frame_modificar, text="Nuevo Estado:").grid(row=1, column=0, sticky="w")
-        self.nuevo_estado = ttk.Combobox(self.frame_modificar, values=["Abierto", "En Proceso", "Cerrado"])
-        self.nuevo_estado.grid(row=1, column=1, padx=5, pady=5)
+        boton_cargar = tk.Button(self.frame_modificar, text="Cargar Datos", command=self.cargar_datos_ticket)
+        boton_cargar.grid(row=0, column=2, padx=10)
 
-        boton_modificar = tk.Button(self.frame_modificar, text="Modificar", command=self.ejecutar_modificar)
-        boton_modificar.grid(row=2, column=1, pady=10, sticky="e")
+    def cargar_datos_ticket(self):
+        id_ticket = self.modificar_id.get().strip()
+
+        if not id_ticket.isdigit():
+            messagebox.showerror("Error", "El ID debe ser un número")
+            return
+
+        ticket = self.ticket_manager.buscar_ticket(int(id_ticket))
+
+        if not ticket:
+            messagebox.showerror("Error", "No existe un ticket con ese ID")
+            return
+
+        # --- USUARIO (NO editable) ---
+        tk.Label(self.frame_modificar, text="Usuario:").grid(row=1, column=0, sticky="w")
+        self.mod_usuario = tk.Entry(self.frame_modificar, width=40)
+        self.mod_usuario.insert(0, ticket["usuario"])
+        self.mod_usuario.config(state="disabled")
+        self.mod_usuario.grid(row=1, column=1, padx=5, pady=5)
+
+        # --- DESCRIPCIÓN ---
+        tk.Label(self.frame_modificar, text="Descripción:").grid(row=2, column=0, sticky="w")
+        self.mod_descripcion = tk.Entry(self.frame_modificar, width=50)
+        self.mod_descripcion.insert(0, ticket["descripcion"])
+        self.mod_descripcion.grid(row=2, column=1, padx=5, pady=5)
+
+        # --- CATEGORÍA ---
+        tk.Label(self.frame_modificar, text="Categoría:").grid(row=3, column=0, sticky="w")
+        self.mod_categoria = ttk.Combobox(self.frame_modificar, values=["Hardware", "Software", "Red", "Otro"])
+        self.mod_categoria.set(ticket["categoria"])
+        self.mod_categoria.grid(row=3, column=1, padx=5, pady=5)
+
+        # --- PRIORIDAD ---
+        tk.Label(self.frame_modificar, text="Prioridad:").grid(row=4, column=0, sticky="w")
+        self.mod_prioridad = ttk.Combobox(self.frame_modificar, values=["Baja", "Media", "Alta"])
+        self.mod_prioridad.set(ticket["prioridad"])
+        self.mod_prioridad.grid(row=4, column=1, padx=5, pady=5)
+
+        # --- ESTADO ---
+        tk.Label(self.frame_modificar, text="Estado:").grid(row=5, column=0, sticky="w")
+        self.mod_estado = ttk.Combobox(self.frame_modificar, values=["Abierto", "En Proceso", "Cerrado"])
+        self.mod_estado.set(ticket["estado"])
+        self.mod_estado.grid(row=5, column=1, padx=5, pady=5)
+
+        # --- BOTÓN GUARDAR ---
+        boton_guardar = tk.Button(self.frame_modificar, text="Guardar Cambios", command=self.guardar_modificacion)
+        boton_guardar.grid(row=6, column=1, pady=10, sticky="e")
+
+    def guardar_modificacion(self):
+        id_ticket = int(self.modificar_id.get().strip())
+
+        nueva_descripcion = self.mod_descripcion.get().strip()
+        nueva_categoria = self.mod_categoria.get().strip()
+        nueva_prioridad = self.mod_prioridad.get().strip()
+        nuevo_estado = self.mod_estado.get().strip()
+
+        if not nueva_descripcion or not nueva_categoria or not nueva_prioridad or not nuevo_estado:
+            messagebox.showerror("Error", "Todos los campos son obligatorios")
+            return
+
+        # Actualizar estado (lógica)
+        self.ticket_manager.actualizar_estado(id_ticket, nuevo_estado)
+
+        # Actualizar otros campos (lógica)
+        ticket = self.ticket_manager.buscar_ticket(id_ticket)
+        ticket["descripcion"] = nueva_descripcion
+        ticket["categoria"] = nueva_categoria
+        ticket["prioridad"] = nueva_prioridad
+
+        self.ticket_manager.guardar()
+
+        messagebox.showinfo("OK", "Ticket modificado correctamente")
+
+        self.frame_modificar.destroy()
+        self.metricas()
 
     def ejecutar_modificar(self):
         id_ticket = self.modificar_id.get().strip()
